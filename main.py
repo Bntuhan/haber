@@ -18,7 +18,7 @@ if guncelle:
 dilsecimi=st.multiselect("Ülke Seç",diller)
 ara=st.text_input("Haber İçinde Arama Yap")    
 
-ara=st.text_input("Haber İçinde Arama Yap")
+
 
 conn=sqlitecloud.connect('sqlitecloud://cyql96oxhk.g3.sqlite.cloud:8860/chinook.sqlite?apikey=VCgODu4MWtgTc4FfUmMWQwdhrYpj0WRs9vhFtNIgEB4')
 c=conn.cursor()
