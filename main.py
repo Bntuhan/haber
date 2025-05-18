@@ -14,8 +14,10 @@ c=conn.cursor()
 
 if len(ara)≥1:
    c.execute("SELECT * FROM haberler WHERE baslik LIKE '%{ara}%' ORDER BY trend_id DESC LIMIT 99")      
+   
 else:
     c.execute("SELECT * FROM haberler ORDER BY trend_id DESC LIMIT 99")
+   
 haberler=c.fetchall()
 
 for i in range(0,len(haberler),3):
