@@ -15,7 +15,8 @@ guncelle=st.sidebar.button("Haberleri Güncelle")
 if guncelle:
     for dil in diller:
         trendgetir(dil)
-dilsecimi=st.multiselect("Ülke Seç,diller)    
+dilsecimi=st.multiselect("Ülke Seç",diller)
+ara=st.text_input("Haber İçinde Arama Yap")    
 
 ara=st.text_input("Haber İçinde Arama Yap")
 
