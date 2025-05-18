@@ -7,9 +7,13 @@ from datetime import date
 from google import genai
 from pydantic import BaseModel
 
+ara st.text_input8("Haber İçinde Arama Yap")
 
 conn=sqlitecloud.connect('sqlitecloud://cyql96oxhk.g3.sqlite.cloud:8860/chinook.sqlite?apikey=VCgODu4MWtgTc4FfUmMWQwdhrYpj0WRs9vhFtNIgEB4')
 c=conn.cursor()
+
+if len(ara)≥1:
+   c.execute("SELECT * FROM haberler WHERE baslik LIKE '%{ara}%' ORDER BY trend_id DESC LIMIT 99")      
 
 c.execute("SELECT * FROM haberler ORDER BY trend_id DESC LIMIT 99")
 haberler=c.fetchall()
