@@ -15,34 +15,21 @@ guncelle=st.sidebar.button("Haberleri Güncelle")
 if guncelle:
     for dil in diller:
         trendgetir(dil)
+
 dilsecimi=st.multiselect("Ülke Seç",diller)
-ara=st.text_input("Haber İçinde Arama Yap")    
-
-
+ara=st.text_input("Haber İçinde Arama Yap")
 
 conn=sqlitecloud.connect('sqlitecloud://cyql96oxhk.g3.sqlite.cloud:8860/chinook.sqlite?apikey=VCgODu4MWtgTc4FfUmMWQwdhrYpj0WRs9vhFtNIgEB4')
 c=conn.cursor()
 
-query = "SELECT * FROM haberler"
-conditions = []
-params = []
+if len(ara)>1:
+    c.execute(f"SELECT * FROM haberler WHERE baslik LIKE '%{ara}%' ORDER BY trend_id DESC LIMIT 99 ")
 
-if dilsecimi:
-    placeholders = ",".join(["?"] * len(dilsecimi))
-    conditions.append(f"dil IN ({placeholders})")
-    params.extend(dilsecimi)
+else:
+    c.execute("SELECT * FROM haberler ORDER BY trend_id DESC LIMIT 99")
+    
+haberler=c.fetchall()
 
-if len(ara) > 1:
-    conditions.append("baslik LIKE ?")
-    params.append(f"%{ara}%")
-
-if conditions:
-    query += " WHERE " + " AND ".join(conditions)
-
-query += " ORDER BY trend_id DESC LIMIT 99"
-
-c.execute(query, params)
-haberler = c.fetchall()
 if len(haberler)==0:
     st.warning(f" {ara} sorgusu ile ilgili Herhangi Bir Haber bulunamadı")
 
