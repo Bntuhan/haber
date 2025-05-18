@@ -13,7 +13,7 @@ conn=sqlitecloud.connect('sqlitecloud://cyql96oxhk.g3.sqlite.cloud:8860/chinook.
 c=conn.cursor()
 
 if len(ara)>1:
-    c.execute("SELECT * FROM haberler WHERE baslik LIKE '%{ara}%' ORDER BY trend_id DESC LIMIT 99")      
+    c.execute(f"SELECT * FROM haberler WHERE baslik LIKE '%{ara}%' ORDER BY trend_id DESC LIMIT 99")      
    
 else:
     c.execute("SELECT * FROM haberler ORDER BY trend_id DESC LIMIT 99")
