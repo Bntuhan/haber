@@ -27,12 +27,19 @@ c.execute(query, dilsecimi)
 
 if len(ara) > 1:
     if len(dilsecimi) > 0:
-        placeholders = ','.join('?' for _ in dilsecimi)
+        placeholders = ','.join(['?'] * len(dilsecimi))
         query = f"SELECT * FROM haberler WHERE baslik LIKE ? AND dil IN ({placeholders}) ORDER BY trend_id DESC LIMIT 99"
         params = [f"%{ara}%"] + dilsecimi
         c.execute(query, params)
     else:
         c.execute("SELECT * FROM haberler WHERE baslik LIKE ? ORDER BY trend_id DESC LIMIT 99", (f"%{ara}%",))
+else:
+    if len(dilsecimi) > 0:
+        placeholders = ','.join(['?'] * len(dilsecimi))
+        query = f"SELECT * FROM haberler WHERE dil IN ({placeholders}) ORDER BY trend_id DESC LIMIT 99"
+        c.execute(query, dilsecimi)
+    else:
+        c.execute("SELECT * FROM haberler ORDER BY trend_id DESC LIMIT 99")
 else:
     if len(dilsecimi) > 0:
         placeholders = ','.join('?' for _ in dilsecimi)
